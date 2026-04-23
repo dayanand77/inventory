@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
 import Loader from "../components/common/Loader";
+import Modal from "../components/common/Modal";
 import { useAuth } from "../context/AuthContext";
 import { fetchInventory } from "../services/inventoryService";
 import {
@@ -19,6 +20,7 @@ function TransactionsPage() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
+  const [selectedTx, setSelectedTx] = useState(null);
 
   const [form, setForm] = useState({
     itemId: "",
@@ -233,6 +235,7 @@ function TransactionsPage() {
                 <th>Requester</th>
                 <th>Department</th>
                 <th>Date</th>
+                <th>Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -244,12 +247,47 @@ function TransactionsPage() {
                   <td>{transaction.requesterName || transaction.requesterUid || "-"}</td>
                   <td>{transaction.department || "-"}</td>
                   <td>{formatDate(transaction.createdAt)}</td>
+                  <td>
+                    {transaction.notes ? (
+                      <button
+                        type="button"
+                        className="ghost-button"
+                        style={{ padding: "4px 8px", fontSize: "0.8rem" }}
+                        onClick={() => setSelectedTx(transaction)}
+                      >
+                        View Info
+                      </button>
+                    ) : (
+                      <span style={{ color: "var(--text-secondary)", fontSize: "0.8rem" }}>-</span>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </section>
+
+      <Modal
+        title="Transaction Details"
+        open={!!selectedTx}
+        onClose={() => setSelectedTx(null)}
+      >
+        {selectedTx && (
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <p><strong>Type:</strong> {selectedTx.type}</p>
+            <p><strong>Quantity:</strong> {selectedTx.quantity}</p>
+            <p><strong>Requester:</strong> {selectedTx.requesterName || selectedTx.requesterUid}</p>
+            <div style={{ padding: "12px", background: "rgba(255,255,255,0.05)", borderRadius: "8px" }}>
+              <strong style={{ display: "block", marginBottom: "8px" }}>Notes:</strong>
+              <p style={{ whiteSpace: "pre-wrap", margin: 0 }}>{selectedTx.notes}</p>
+            </div>
+            <div className="button-row">
+              <button className="primary-button" onClick={() => setSelectedTx(null)}>Close</button>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

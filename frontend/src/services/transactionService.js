@@ -24,3 +24,8 @@ export async function approveRequest(requestId) {
   const response = await apiClient.post(`/transactions/requests/${requestId}/approve`);
   return response.data.result;
 }
+
+export async function restockItem(payload) {
+  const response = await apiClient.post("/transactions/restock", payload);
+  return response.data.result;
+}

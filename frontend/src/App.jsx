@@ -2,10 +2,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import AppLayout from "./components/layout/AppLayout";
+import AuditLogsPage from "./pages/AuditLogsPage";
 import DashboardPage from "./pages/DashboardPage";
 import InventoryPage from "./pages/InventoryPage";
 import LoginPage from "./pages/LoginPage";
 import NotificationsPage from "./pages/NotificationsPage";
+import SuppliersPage from "./pages/SuppliersPage";
 import TransactionsPage from "./pages/TransactionsPage";
 
 function App() {
@@ -22,8 +24,10 @@ function App() {
       >
         <Route index element={<DashboardPage />} />
         <Route path="/inventory" element={<InventoryPage />} />
+        <Route path="/suppliers" element={<SuppliersPage />} />
         <Route path="/transactions" element={<TransactionsPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
+        <Route path="/audit" element={<AuditLogsPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

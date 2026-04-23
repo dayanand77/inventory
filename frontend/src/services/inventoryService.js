@@ -10,6 +10,11 @@ export async function fetchItemByCode(itemCode) {
   return response.data.item;
 }
 
+export async function fetchExpiringItems(days = 30) {
+  const response = await apiClient.get("/inventory/expiring", { params: { days } });
+  return response.data.items;
+}
+
 export async function createInventoryItem(payload) {
   const response = await apiClient.post("/inventory", payload);
   return response.data.item;

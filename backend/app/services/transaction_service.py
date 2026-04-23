@@ -4,7 +4,7 @@ from bson import ObjectId
 
 from app.core.db import get_db
 from app.models.schemas import serialize_document
-from app.services.inventory_service import issue_item_stock, return_item_stock
+from app.services.inventory_service import issue_item_stock, return_item_stock, restock_item_stock
 
 
 def _collection():
@@ -160,3 +160,28 @@ def approve_request(request_id: str, current_user: dict):
         "request": serialize_document(approved_request),
         "issued": issued,
     }
+
+
+def restock_item(payload: dict, current_user: dict):
+    item_id = payload.get("itemId")
+    quantity = _to_int(payload.get("quantity"), "quantity")
+
+    if not item_id:
+        raise ValueError("itemId is required")
+
+    updated_item = restock_item_stock(item_id, quantity, current_user, payload)
+
+    transaction_doc = {
+        "itemId": item_id,
+        "type": "RESTOCK",
+        "status": "COMPLETED",
+        "quantity": quantity,
+        "requesterUid": current_user.get("uid"),
+        "requesterName": current_user.get("displayName") or current_user.get("email"),
+        "department": current_user.get("department", ""),
+        "notes": payload.get("notes", ""),
+        "processedBy": current_user.get("uid"),
+    }
+
+    transaction = _insert_transaction(transaction_doc)
+    return {"item": updated_item, "transaction": transaction}

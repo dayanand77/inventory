@@ -10,10 +10,12 @@ const INITIAL_STATE = {
   unit: "unit",
   description: "",
   manufacturer: "",
+  supplierId: "",
+  expiryDate: "",
   barcode: "",
 };
 
-function ItemForm({ initialItem, onSubmit, loading }) {
+function ItemForm({ initialItem, onSubmit, loading, suppliers = [] }) {
   const [form, setForm] = useState(() => {
     if (!initialItem) {
       return INITIAL_STATE;
@@ -29,6 +31,8 @@ function ItemForm({ initialItem, onSubmit, loading }) {
       unit: initialItem.unit || "unit",
       description: initialItem.description || "",
       manufacturer: initialItem.manufacturer || "",
+      supplierId: initialItem.supplierId || "",
+      expiryDate: initialItem.expiryDate || "",
       barcode: initialItem.barcode || initialItem.itemCode,
     };
   });
@@ -111,6 +115,25 @@ function ItemForm({ initialItem, onSubmit, loading }) {
           value={form.manufacturer}
           onChange={(event) => updateField("manufacturer", event.target.value)}
         />
+      </label>
+
+      <label>
+        Expiration Date
+        <input
+          type="date"
+          value={form.expiryDate}
+          onChange={(event) => updateField("expiryDate", event.target.value)}
+        />
+      </label>
+
+      <label>
+        Supplier
+        <select value={form.supplierId} onChange={(event) => updateField("supplierId", event.target.value)}>
+          <option value="">-- No Supplier --</option>
+          {suppliers.map(s => (
+            <option key={s._id} value={s._id}>{s.name}</option>
+          ))}
+        </select>
       </label>
 
       <label>

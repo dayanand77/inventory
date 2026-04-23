@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { inMemoryPersistence, initializeAuth } from "firebase/auth";
+import { browserLocalPersistence, initializeAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -12,5 +12,5 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = initializeAuth(app, {
-  persistence: inMemoryPersistence,
+  persistence: browserLocalPersistence,
 });

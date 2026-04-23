@@ -8,6 +8,7 @@ from app.services.inventory_service import (
     get_item_by_code,
     get_item_by_id,
     list_inventory,
+    list_expiring_inventory,
     update_item,
 )
 
@@ -24,6 +25,14 @@ def list_items():
         location=request.args.get("location"),
         low_stock=request.args.get("lowStock", "false").lower() == "true",
     )
+    return jsonify({"items": items})
+
+
+@inventory_bp.get("/expiring")
+@require_auth(allowed_roles=["ADMIN", "STAFF"])
+def get_expiring_items():
+    days = int(request.args.get("days", 30))
+    items = list_expiring_inventory(days=days)
     return jsonify({"items": items})
 
 

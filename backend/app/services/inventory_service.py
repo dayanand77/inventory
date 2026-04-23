@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from bson import ObjectId
 from pymongo import ReturnDocument
@@ -61,6 +61,22 @@ def list_inventory(search=None, category=None, location=None, low_stock=False):
     return serialize_document(list(cursor))
 
 
+def list_expiring_inventory(days: int = 30):
+    cutoff_date = (datetime.utcnow() + timedelta(days=days)).isoformat()
+    # expiryDate is stored as string YYYY-MM-DD
+    # We want items where expiryDate exists and is <= cutoff_date string (lexicographical compare works for iso dates)
+    query = {
+        "expiryDate": {
+            "$exists": True,
+            "$ne": "",
+            "$ne": None,
+            "$lte": cutoff_date[:10]  # Just YYYY-MM-DD
+        }
+    }
+    cursor = _collection().find(query).sort("expiryDate", 1)
+    return serialize_document(list(cursor))
+
+
 def get_item_by_id(item_id: str):
     item = _collection().find_one({"_id": _to_object_id(item_id)})
     if not item:
@@ -101,6 +117,7 @@ def create_item(payload: dict, user: dict, default_threshold: int):
         "unit": (payload.get("unit") or "unit").strip(),
         "description": (payload.get("description") or "").strip(),
         "manufacturer": (payload.get("manufacturer") or "").strip(),
+        "supplierId": payload.get("supplierId"),
         "expiryDate": payload.get("expiryDate"),
         "barcode": (payload.get("barcode") or item_code).strip(),
         "totalQuantity": quantity,
@@ -148,6 +165,7 @@ def update_item(item_id: str, payload: dict, user: dict):
         "unit": payload.get("unit", existing.get("unit", "unit")),
         "description": payload.get("description", existing.get("description", "")),
         "manufacturer": payload.get("manufacturer", existing.get("manufacturer", "")),
+        "supplierId": payload.get("supplierId", existing.get("supplierId")),
         "expiryDate": payload.get("expiryDate", existing.get("expiryDate")),
         "barcode": payload.get("barcode", existing.get("barcode", existing.get("itemCode"))),
         "totalQuantity": new_total_quantity,
@@ -258,6 +276,45 @@ def return_item_stock(item_id: str, quantity: int, user: dict, extra_meta=None):
 
     if not updated:
         raise ValueError("Return quantity exceeds issued stock or invalid item")
+
+    updated["isLowStock"] = _is_low_stock(updated)
+    _collection().update_one(
+        {"_id": object_id}, {"$set": {"isLowStock": updated["isLowStock"]}}
+    )
+
+    return serialize_document(updated)
+
+
+def restock_item_stock(item_id: str, quantity: int, user: dict, extra_meta=None):
+    object_id = _to_object_id(item_id)
+    quantity = _to_positive_int(quantity, "quantity")
+    extra_meta = extra_meta or {}
+
+    updated = _collection().find_one_and_update(
+        {"_id": object_id},
+        {
+            "$inc": {"availableQuantity": quantity, "totalQuantity": quantity},
+            "$set": {"updatedAt": datetime.utcnow(), "updatedBy": user.get("uid")},
+            "$push": {
+                "usageHistory": {
+                    "$each": [
+                        {
+                            "type": "RESTOCK",
+                            "quantity": quantity,
+                            "note": extra_meta.get("notes", ""),
+                            "createdAt": datetime.utcnow(),
+                            "processedBy": user.get("uid"),
+                        }
+                    ],
+                    "$slice": -50,
+                }
+            },
+        },
+        return_document=ReturnDocument.AFTER,
+    )
+
+    if not updated:
+        raise ValueError("Invalid item")
 
     updated["isLowStock"] = _is_low_stock(updated)
     _collection().update_one(

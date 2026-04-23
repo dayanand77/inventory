@@ -7,6 +7,7 @@ from app.services.transaction_service import (
     issue_item,
     list_transactions,
     return_item,
+    restock_item,
 )
 
 
@@ -61,6 +62,19 @@ def return_inventory_item():
         return jsonify({"error": str(exc)}), 400
 
     return jsonify({"result": result, "message": "Item returned successfully"}), 201
+
+
+@transaction_bp.post("/restock")
+@require_auth(allowed_roles=["ADMIN"])
+def restock_inventory_item():
+    payload = request.get_json(silent=True) or {}
+
+    try:
+        result = restock_item(payload, g.current_user)
+    except ValueError as exc:
+        return jsonify({"error": str(exc)}), 400
+
+    return jsonify({"result": result, "message": "Item restocked successfully"}), 201
 
 
 @transaction_bp.post("/requests/<request_id>/approve")

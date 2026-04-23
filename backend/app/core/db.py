@@ -21,6 +21,8 @@ def init_db(app):
     _database.transactions.create_index([("itemId", ASCENDING), ("createdAt", DESCENDING)])
     _database.transactions.create_index([("requesterUid", ASCENDING), ("createdAt", DESCENDING)])
     _database.notifications.create_index([("isRead", ASCENDING), ("createdAt", DESCENDING)])
+    _database.suppliers.create_index([("name", ASCENDING)], unique=True)
+    _database.audit_logs.create_index([("createdAt", DESCENDING)])
 
     app.logger.info("MongoDB initialized")
 

@@ -5,6 +5,7 @@ import StatCard from "../components/charts/StatCard";
 import UsageChart from "../components/charts/UsageChart";
 import Loader from "../components/common/Loader";
 import { fetchCategoryBreakdown, fetchLowStock, fetchMetrics, fetchMonthlyUsage } from "../services/dashboardService";
+import { fetchExpiringItems } from "../services/inventoryService";
 
 function DashboardPage() {
   const [loading, setLoading] = useState(true);
@@ -12,21 +13,24 @@ function DashboardPage() {
   const [categoryData, setCategoryData] = useState([]);
   const [usageData, setUsageData] = useState([]);
   const [lowStockItems, setLowStockItems] = useState([]);
+  const [expiringItems, setExpiringItems] = useState([]);
 
   const loadDashboard = async () => {
     setLoading(true);
     try {
-      const [metricsResult, categoryResult, usageResult, lowStockResult] = await Promise.all([
+      const [metricsResult, categoryResult, usageResult, lowStockResult, expiringResult] = await Promise.all([
         fetchMetrics(),
         fetchCategoryBreakdown(),
         fetchMonthlyUsage(),
         fetchLowStock(),
+        fetchExpiringItems(30)
       ]);
 
       setMetrics(metricsResult);
       setCategoryData(categoryResult);
       setUsageData(usageResult);
       setLowStockItems(lowStockResult);
+      setExpiringItems(expiringResult);
     } catch {
       toast.error("Failed to load dashboard data");
     } finally {
@@ -102,6 +106,26 @@ function DashboardPage() {
             </div>
           ))}
           {!lowStockItems.length && <p>All items are above threshold.</p>}
+        </div>
+      </section>
+
+      <section className="panel-card">
+        <h3>Expiring Soon (Next 30 Days)</h3>
+        <div className="list-panel">
+          {expiringItems.map((item) => (
+            <div key={item._id} className="list-row">
+              <div>
+                <strong>{item.name}</strong>
+                <p>
+                  {item.itemCode} · {item.location}
+                </p>
+              </div>
+              <span className="pill warning">
+                Exp: {item.expiryDate.split("T")[0]}
+              </span>
+            </div>
+          ))}
+          {!expiringItems.length && <p>No items expiring in the next 30 days.</p>}
         </div>
       </section>
     </div>

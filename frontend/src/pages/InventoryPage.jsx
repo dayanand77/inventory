@@ -17,21 +17,31 @@ import {
   fetchItemByCode,
   updateInventoryItem,
 } from "../services/inventoryService";
+import { fetchSuppliers } from "../services/supplierService";
+import { restockItem } from "../services/transactionService";
 
 function InventoryPage() {
   const { isAdmin } = useAuth();
   const [items, setItems] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [restockModalOpen, setRestockModalOpen] = useState(false);
+  const [selectedRestockItemId, setSelectedRestockItemId] = useState("");
+  const [restockQty, setRestockQty] = useState(1);
   const [filters, setFilters] = useState({ search: "", category: "", lowStock: false });
 
   const loadInventory = async () => {
     setLoading(true);
     try {
-      const result = await fetchInventory(filters);
-      setItems(result);
+      const [inventoryResult, suppliersResult] = await Promise.all([
+        fetchInventory(filters),
+        fetchSuppliers()
+      ]);
+      setItems(inventoryResult);
+      setSuppliers(suppliersResult);
     } catch {
       toast.error("Unable to load inventory items");
     } finally {
@@ -86,6 +96,24 @@ function InventoryPage() {
       await loadInventory();
     } catch (error) {
       toast.error(error?.response?.data?.error || "Failed to save item");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleRestockSubmit = async (e) => {
+    e.preventDefault();
+    if (!selectedRestockItemId) return;
+    setSaving(true);
+    try {
+      await restockItem({ itemId: selectedRestockItemId, quantity: restockQty, notes: "Manual restock via inventory page" });
+      toast.success(`Stock added successfully`);
+      setRestockModalOpen(false);
+      setSelectedRestockItemId("");
+      setRestockQty(1);
+      await loadInventory();
+    } catch (error) {
+      toast.error(error?.response?.data?.error || "Failed to restock item");
     } finally {
       setSaving(false);
     }
@@ -152,6 +180,18 @@ function InventoryPage() {
                 onClick={async () => triggerDownload(await downloadInventoryPdf(), "inventory-report.pdf")}
               >
                 Export PDF
+              </button>
+              <button
+                type="button"
+                className="outline-button"
+                style={{ borderColor: 'var(--success-color)', color: 'var(--success-color)' }}
+                onClick={() => {
+                  setSelectedRestockItemId("");
+                  setRestockQty(1);
+                  setRestockModalOpen(true);
+                }}
+              >
+                Restock Item
               </button>
               <button
                 type="button"
@@ -245,8 +285,57 @@ function InventoryPage() {
         open={modalOpen}
         onClose={resetModal}
       >
-        <ItemForm initialItem={editingItem} onSubmit={handleFormSubmit} loading={saving} />
+        <ItemForm initialItem={editingItem} onSubmit={handleFormSubmit} loading={saving} suppliers={suppliers} />
       </Modal>
+
+      {isAdmin && (
+        <Modal title="Restock Inventory Item" open={restockModalOpen} onClose={() => setRestockModalOpen(false)}>
+          <form onSubmit={handleRestockSubmit} className="form-grid">
+            <label>
+              Select Item (Name or Code)
+              <select
+                value={selectedRestockItemId}
+                onChange={(e) => setSelectedRestockItemId(e.target.value)}
+                required
+              >
+                <option value="">-- Select an item to restock --</option>
+                {items.map((item) => (
+                  <option key={item._id} value={item._id}>
+                    {item.name} ({item.itemCode})
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            {selectedRestockItemId && (
+              <div style={{ padding: "10px", background: "rgba(255,255,255,0.05)", borderRadius: "8px", fontSize: "0.9rem" }}>
+                {(() => {
+                  const sel = items.find(i => i._id === selectedRestockItemId);
+                  const supplier = suppliers.find(s => s._id === sel?.supplierId);
+                  return (
+                    <>
+                      <p style={{ margin: "4px 0" }}><strong>Category:</strong> {sel?.category || "N/A"}</p>
+                      <p style={{ margin: "4px 0" }}><strong>Current Stock:</strong> {sel?.availableQuantity} available ({sel?.totalQuantity} total)</p>
+                      <p style={{ margin: "4px 0" }}><strong>Supplier:</strong> {supplier?.name || "No assigned supplier"}</p>
+                    </>
+                  );
+                })()}
+              </div>
+            )}
+
+            <label>
+              Quantity to Add
+              <input type="number" min="1" value={restockQty} onChange={(e) => setRestockQty(Number(e.target.value))} required />
+            </label>
+
+            <div className="button-row" style={{ marginTop: "1rem" }}>
+              <button type="submit" className="primary-button" disabled={saving || !selectedRestockItemId}>
+                Confirm Restock
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
     </div>
   );
 }
