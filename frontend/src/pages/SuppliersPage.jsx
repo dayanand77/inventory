@@ -83,6 +83,7 @@ function SupplierTable({ items, canManage, onEdit, onDelete }) {
             <th>Contact Person</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Items Supplied</th>
             {canManage && <th className="actions-col">Actions</th>}
           </tr>
         </thead>
@@ -93,6 +94,16 @@ function SupplierTable({ items, canManage, onEdit, onDelete }) {
               <td>{item.contactName || "-"}</td>
               <td>{item.contactEmail || "-"}</td>
               <td>{item.contactPhone || "-"}</td>
+              <td>
+                <button 
+                  type="button" 
+                  className="ghost-button" 
+                  style={{ padding: "4px 8px", fontSize: "0.8rem" }}
+                  onClick={() => window.dispatchEvent(new CustomEvent("view-supplier-items", { detail: item }))}
+                >
+                  View {item.suppliedItems?.length || 0} items
+                </button>
+              </td>
               {canManage && (
                 <td className="actions-col">
                   <button type="button" onClick={() => onEdit(item)}>Edit</button>
@@ -114,7 +125,14 @@ function SuppliersPage() {
   const [saving, setSaving] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [viewingItems, setViewingItems] = useState(null);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const handleViewItems = (e) => setViewingItems(e.detail);
+    window.addEventListener("view-supplier-items", handleViewItems);
+    return () => window.removeEventListener("view-supplier-items", handleViewItems);
+  }, []);
 
   const loadSuppliers = async () => {
     setLoading(true);
@@ -238,6 +256,41 @@ function SuppliersPage() {
         onClose={resetModal}
       >
         <SupplierForm initialItem={editingItem} onSubmit={handleFormSubmit} loading={saving} />
+      </Modal>
+
+      <Modal
+        title={`Items supplied by ${viewingItems?.name}`}
+        open={!!viewingItems}
+        onClose={() => setViewingItems(null)}
+      >
+        {viewingItems?.suppliedItems?.length > 0 ? (
+          <div className="table-responsive" style={{ maxHeight: "400px", overflowY: "auto" }}>
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Item Code</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Available Qty</th>
+                  <th>Total Qty</th>
+                </tr>
+              </thead>
+              <tbody>
+                {viewingItems.suppliedItems.map(i => (
+                  <tr key={i._id}>
+                    <td>{i.itemCode}</td>
+                    <td>{i.name}</td>
+                    <td>{i.category}</td>
+                    <td>{i.availableQuantity}</td>
+                    <td>{i.totalQuantity}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p>No items are currently linked to this supplier.</p>
+        )}
       </Modal>
     </div>
   );

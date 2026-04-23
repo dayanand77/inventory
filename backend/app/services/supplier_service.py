@@ -27,7 +27,29 @@ def list_suppliers(search=None):
             {"contactPhone": regex},
         ]
 
-    cursor = _collection().find(query).sort("name", 1)
+    pipeline = [
+        {"$match": query},
+        {
+            "$addFields": {
+                "stringId": {"$toString": "$_id"}
+            }
+        },
+        {
+            "$lookup": {
+                "from": "inventory_items",
+                "localField": "stringId",
+                "foreignField": "supplierId",
+                "as": "suppliedItems"
+            }
+        },
+        {
+            "$project": {
+                "stringId": 0
+            }
+        },
+        {"$sort": {"name": 1}}
+    ]
+    cursor = _collection().aggregate(pipeline)
     return serialize_document(list(cursor))
 
 
