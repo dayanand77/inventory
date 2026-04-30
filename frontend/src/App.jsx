@@ -9,6 +9,9 @@ import LoginPage from "./pages/LoginPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import SuppliersPage from "./pages/SuppliersPage";
 import TransactionsPage from "./pages/TransactionsPage";
+import ExpiryManagementPage from "./pages/ExpiryManagementPage";
+import DepartmentAllocationPage from "./pages/DepartmentAllocationPage";
+import ComplianceManagementPage from "./pages/ComplianceManagementPage";
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
         <Route path="/transactions" element={<TransactionsPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/audit" element={<AuditLogsPage />} />
+        <Route path="/expiry" element={<ExpiryManagementPage />} />
+        <Route path="/departments" element={<DepartmentAllocationPage />} />
+        <Route path="/compliance" element={<ComplianceManagementPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

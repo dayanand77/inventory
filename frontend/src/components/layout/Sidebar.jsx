@@ -6,6 +6,9 @@ const navItems = [
   { to: "/suppliers", label: "Suppliers" },
   { to: "/transactions", label: "Transactions" },
   { to: "/notifications", label: "Notifications" },
+  { to: "/expiry", label: "Expiry & Wastage" },
+  { to: "/departments", label: "Departments" },
+  { to: "/compliance", label: "Compliance" },
   { to: "/audit", label: "Audit Logs" },
 ];
 

@@ -12,6 +12,9 @@ from app.api.notification_routes import notification_bp
 from app.api.supplier_routes import supplier_bp
 from app.api.audit_routes import audit_bp
 from app.api.transaction_routes import transaction_bp
+from app.api.expiry_routes import expiry_bp
+from app.api.department_routes import department_bp
+from app.api.compliance_routes import compliance_bp
 from app.core.config import Config
 from app.core.db import init_db
 
@@ -65,6 +68,9 @@ def create_app() -> Flask:
     app.register_blueprint(notification_bp)
     app.register_blueprint(supplier_bp)
     app.register_blueprint(audit_bp)
+    app.register_blueprint(expiry_bp)
+    app.register_blueprint(department_bp)
+    app.register_blueprint(compliance_bp)
 
     @app.after_request
     def log_mutating_requests(response):

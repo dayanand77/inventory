@@ -18,11 +18,17 @@ def init_db(app):
     _database.inventory_items.create_index([("category", ASCENDING)])
     _database.inventory_items.create_index([("location", ASCENDING)])
     _database.inventory_items.create_index([("isLowStock", ASCENDING)])
+    _database.inventory_items.create_index([("expiryDate", ASCENDING)])
+    _database.inventory_items.create_index([("department", ASCENDING)])
+    _database.inventory_items.create_index([("lotNumber", ASCENDING)])
     _database.transactions.create_index([("itemId", ASCENDING), ("createdAt", DESCENDING)])
     _database.transactions.create_index([("requesterUid", ASCENDING), ("createdAt", DESCENDING)])
     _database.notifications.create_index([("isRead", ASCENDING), ("createdAt", DESCENDING)])
     _database.suppliers.create_index([("name", ASCENDING)], unique=True)
     _database.audit_logs.create_index([("createdAt", DESCENDING)])
+    _database.departments.create_index([("name", ASCENDING)], unique=True)
+    _database.wastage_records.create_index([("itemId", ASCENDING), ("createdAt", DESCENDING)])
+    _database.compliance_records.create_index([("itemId", ASCENDING), ("createdAt", DESCENDING)])
 
     app.logger.info("MongoDB initialized")
 

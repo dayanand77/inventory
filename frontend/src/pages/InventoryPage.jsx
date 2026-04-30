@@ -5,6 +5,7 @@ import EmptyState from "../components/common/EmptyState";
 import Loader from "../components/common/Loader";
 import Modal from "../components/common/Modal";
 import BarcodeScanner from "../components/inventory/BarcodeScanner";
+import BarcodeModalScanner from "../components/common/BarcodeScanner";
 import InventoryTable from "../components/inventory/InventoryTable";
 import ItemForm from "../components/inventory/ItemForm";
 import { useAuth } from "../context/AuthContext";
@@ -31,6 +32,7 @@ function InventoryPage() {
   const [restockModalOpen, setRestockModalOpen] = useState(false);
   const [selectedRestockItemId, setSelectedRestockItemId] = useState("");
   const [restockQty, setRestockQty] = useState(1);
+  const [scannerModalOpen, setScannerModalOpen] = useState(false);
   const [filters, setFilters] = useState({ search: "", category: "", lowStock: false });
 
   const loadInventory = async () => {
@@ -153,6 +155,11 @@ function InventoryPage() {
     }
   };
 
+  const handleModalScan = async (barcode) => {
+    setScannerModalOpen(false);
+    await handleScanDetected(barcode);
+  };
+
   if (loading) {
     return <Loader message="Loading inventory..." />;
   }
@@ -244,6 +251,14 @@ function InventoryPage() {
           <h3>Barcode / QR Lookup</h3>
           <p>Use your camera to scan item code and jump to matching inventory records.</p>
           <BarcodeScanner onDetected={handleScanDetected} />
+          <button 
+            type="button" 
+            className="outline-button"
+            onClick={() => setScannerModalOpen(true)}
+            style={{ marginTop: "10px", width: "100%" }}
+          >
+            📱 Open Scanner in Fullscreen
+          </button>
         </article>
         <article className="panel-card">
           <h3>Quick Summary</h3>
@@ -336,6 +351,10 @@ function InventoryPage() {
           </form>
         </Modal>
       )}
+
+      <Modal title="Fullscreen Barcode Scanner" open={scannerModalOpen} onClose={() => setScannerModalOpen(false)}>
+        <BarcodeModalScanner onScan={handleModalScan} onClose={() => setScannerModalOpen(false)} />
+      </Modal>
     </div>
   );
 }
