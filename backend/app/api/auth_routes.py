@@ -24,9 +24,9 @@ def sync_user_profile():
     if requested_role not in ALLOWED_ROLES:
         requested_role = "STAFF"
 
-    # Only the very first user can self-bootstrap as ADMIN.
+    # Allow up to 10 users to self-bootstrap as ADMIN during development/testing.
     if requested_role == "ADMIN":
-        if users_count > 1 and current_user.get("role") != "ADMIN":
+        if users_count > 10 and current_user.get("role") != "ADMIN":
             requested_role = current_user.get("role", "STAFF")
 
     update = {

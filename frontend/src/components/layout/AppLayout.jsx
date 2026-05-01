@@ -9,6 +9,7 @@ function AppLayout() {
 
   return (
     <div className="app-shell">
+      {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />}
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="app-main">
         <Header onMenuClick={() => setSidebarOpen((state) => !state)} />

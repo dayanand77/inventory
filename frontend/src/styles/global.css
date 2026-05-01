@@ -551,15 +551,30 @@ button:hover:not(:disabled) {
     position: fixed;
     left: -110%;
     width: min(290px, 85vw);
-    transition: left 0.25s ease;
-    z-index: 30;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
   }
 
   .sidebar.open {
     left: 0;
   }
 
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 90;
+    animation: fadeIn 0.2s ease;
+  }
+
   .menu-toggle {
     display: inline-flex;
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
