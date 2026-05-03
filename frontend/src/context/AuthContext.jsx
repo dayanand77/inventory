@@ -96,15 +96,8 @@ export function AuthProvider({ children }) {
 
       try {
         await fetchProfile(user);
-      } catch {
-        await syncProfile(
-          {
-            displayName: user.displayName || "",
-            department: "",
-            role: "STAFF",
-          },
-          user
-        );
+      } catch (error) {
+        console.error("Failed to fetch user profile on auth change:", error);
       } finally {
         setLoading(false);
       }

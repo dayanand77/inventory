@@ -315,7 +315,7 @@ export default function DepartmentAllocationPage() {
 
       {/* Create Department Modal */}
       <Modal
-        isOpen={showDeptModal}
+        open={showDeptModal}
         onClose={() => setShowDeptModal(false)}
         title="Create Department"
       >
@@ -366,7 +366,7 @@ export default function DepartmentAllocationPage() {
 
       {/* Allocate Items Modal */}
       <Modal
-        isOpen={showAllocateModal}
+        open={showAllocateModal}
         onClose={() => setShowAllocateModal(false)}
         title="Allocate Items to Department"
       >
@@ -408,7 +408,7 @@ export default function DepartmentAllocationPage() {
 
       {/* Record Usage Modal */}
       <Modal
-        isOpen={showUsageModal}
+        open={showUsageModal}
         onClose={() => setShowUsageModal(false)}
         title="Record Item Usage"
       >

@@ -300,7 +300,7 @@ export default function ExpiryManagementPage() {
 
       {/* Wastage Modal */}
       <Modal
-        isOpen={showWastageModal}
+        open={showWastageModal}
         onClose={() => setShowWastageModal(false)}
         title="Record Wastage"
       >

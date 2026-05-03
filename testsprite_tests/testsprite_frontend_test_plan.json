@@ -1,0 +1,1821 @@
+[
+  {
+    "id": "TC001",
+    "title": "Sign in and reach dashboard",
+    "description": "Verifies a user can sign in from the login page and land on the dashboard successfully.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the credentials"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the dashboard"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Submit stock request and see it in history as pending",
+    "description": "Verifies a staff user can create a stock request and the new request appears in the transactions list with a PENDING status.",
+    "category": "Transactions and Requests",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to view transactions"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new stock request"
+      },
+      {
+        "type": "action",
+        "description": "Select an inventory item for the request"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid positive quantity into the requested quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Select a department for the request"
+      },
+      {
+        "type": "action",
+        "description": "Fill a short note into the notes field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the request form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the newly created request is listed in the transactions history with a PENDING status"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Approve and issue a pending request and see status update",
+    "description": "Verifies an admin/approver can approve and issue a pending request and the transaction status updates to APPROVED or COMPLETED.",
+    "category": "Transactions and Requests",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to view transactions"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new stock request"
+      },
+      {
+        "type": "action",
+        "description": "Select an inventory item for the request"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid positive quantity into the requested quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Select a department for the request"
+      },
+      {
+        "type": "action",
+        "description": "Submit the request form"
+      },
+      {
+        "type": "action",
+        "description": "Find the newly created pending request in the list"
+      },
+      {
+        "type": "action",
+        "description": "Open the approve and issue workflow for the pending request"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid issued quantity that is less than or equal to the requested quantity into the issued quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Fill valid processor details into the processor details field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the issuance"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the request status is updated to APPROVED or COMPLETED in the transactions list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Create a return transaction and see it completed",
+    "description": "Verifies a user can create a return transaction and the new return appears in the transactions list with a COMPLETED status.",
+    "category": "Transactions and Requests",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to view transactions"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new return transaction"
+      },
+      {
+        "type": "action",
+        "description": "Select an inventory item to return"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid positive quantity into the return quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the return form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the return transaction is listed with a COMPLETED status"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Add a new inventory item and see it listed",
+    "description": "Verifies an admin can create a new inventory item and it appears in the inventory list.",
+    "category": "Inventory Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the credentials"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open inventory management"
+      },
+      {
+        "type": "action",
+        "description": "Choose to add a new inventory item"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Test Item A\" into the item name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique item code into the item code field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid positive quantity into the quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Main Store\" into the location field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the new item form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new inventory item appears in the inventory list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Create a new account and reach dashboard",
+    "description": "Verifies a new user can switch to signup mode, create an account, and land on the dashboard.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Toggle to signup mode"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique valid email into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid password into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the signup form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the dashboard"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Restock an item and see quantity increase",
+    "description": "Verifies an admin can restock an inventory item and the available quantity updates accordingly in the list.",
+    "category": "Inventory Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the credentials"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open inventory management"
+      },
+      {
+        "type": "action",
+        "description": "Choose to add a new inventory item"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Restock Item\" into the item name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique item code into the item code field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"5\" into the quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Restock Shelf\" into the location field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the new item form"
+      },
+      {
+        "type": "action",
+        "description": "Open the restock flow for the created item"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"3\" into the restock quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the restock"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the item's available quantity is updated to reflect the restock"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Filter notifications to unread and mark one as read",
+    "description": "Verifies a user can filter notifications to show unread items, mark one as read, and see its read status update.",
+    "category": "Notifications and Alerts",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to view notifications"
+      },
+      {
+        "type": "action",
+        "description": "Select the filter option to show unread notifications only"
+      },
+      {
+        "type": "action",
+        "description": "Open a notification from the unread list"
+      },
+      {
+        "type": "action",
+        "description": "Mark the notification as read"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the notification is now shown as read or removed from the unread-only list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Dashboard shows summary stats",
+    "description": "Verifies the dashboard renders key summary metrics so the user can assess inventory at a glance.",
+    "category": "Dashboard Analytics",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the credentials"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify summary stat cards are displayed for totals, available units, issued units, and low-stock count"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Edit an inventory item and see updates reflected",
+    "description": "Verifies an admin can edit an existing inventory item and the updated details are shown in the inventory list.",
+    "category": "Inventory Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the credentials"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open inventory management"
+      },
+      {
+        "type": "action",
+        "description": "Choose to add a new inventory item"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Test Item Edit\" into the item name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique item code into the item code field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid positive quantity into the quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Room 1\" into the location field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the new item form"
+      },
+      {
+        "type": "action",
+        "description": "Search for \"Test Item Edit\" in the inventory search field"
+      },
+      {
+        "type": "action",
+        "description": "Select the item from the results to edit"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Test Item Edit Updated\" into the item name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the item updates"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the inventory list shows the item with the updated name"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Prevent submitting a request with missing required fields",
+    "description": "Verifies the request form blocks submission when required fields are missing and shows validation feedback.",
+    "category": "Transactions and Requests",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to view transactions"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new stock request"
+      },
+      {
+        "type": "action",
+        "description": "Submit the request form without selecting an item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a validation error is visible for the missing required fields"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Generate low-stock alerts and see them appear in notifications",
+    "description": "Verifies an admin can trigger low-stock alert generation and newly generated low-stock notifications appear in the list.",
+    "category": "Notifications and Alerts",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to view notifications"
+      },
+      {
+        "type": "action",
+        "description": "Trigger low-stock alert generation"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the notifications list to refresh"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify newly generated low-stock alerts are displayed in the notifications list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Prevent creating request with non-positive quantity",
+    "description": "Verifies the request form prevents using a zero or negative quantity and shows a quantity validation error.",
+    "category": "Transactions and Requests",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to view transactions"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new stock request"
+      },
+      {
+        "type": "action",
+        "description": "Select an inventory item for the request"
+      },
+      {
+        "type": "action",
+        "description": "Fill 0 into the requested quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Select a department for the request"
+      },
+      {
+        "type": "action",
+        "description": "Submit the request form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a quantity validation error is visible and the request is not added to the transactions list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC014",
+    "title": "Create an allocation to a department",
+    "description": "Verifies a user can allocate stock to a department and the updated allocation is reflected in the department view.",
+    "category": "Departmental Allocation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open department allocation"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new allocation for a department"
+      },
+      {
+        "type": "action",
+        "description": "Select a department for the allocation"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid allocation quantity into the quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Fill allocation notes into the notes field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the allocation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the department's allocation is updated to reflect the new allocation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new allocation entry appears in the department’s allocation history"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC015",
+    "title": "Reject sign in with invalid credentials",
+    "description": "Verifies signing in with invalid credentials is blocked and the user remains unable to access the dashboard.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill invalid credentials into the email and password fields"
+      },
+      {
+        "type": "action",
+        "description": "Submit the credentials"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an authentication error is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC016",
+    "title": "Record disposal or transfer action for an expiring item",
+    "description": "Verifies a user can select an expiring item, record a disposal or transfer action, and the item shows an updated flagged state afterward.",
+    "category": "Expiry Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to expiry management"
+      },
+      {
+        "type": "action",
+        "description": "Open an expiring item from the list"
+      },
+      {
+        "type": "action",
+        "description": "Choose an action type such as disposal or transfer"
+      },
+      {
+        "type": "action",
+        "description": "Submit the expiry action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the item shows an updated flagged or actioned state in the expiry list or item view"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC017",
+    "title": "Search and filter inventory results",
+    "description": "Verifies users can narrow inventory results using search or filters and see only matching items.",
+    "category": "Inventory Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the credentials"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open inventory management"
+      },
+      {
+        "type": "action",
+        "description": "Choose to add a new inventory item"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Filter Target Item\" into the item name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique item code into the item code field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid positive quantity into the quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Filter Location\" into the location field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the new item form"
+      },
+      {
+        "type": "action",
+        "description": "Use search or filters to narrow results to the created item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the inventory results show only items matching the applied search or filter"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC018",
+    "title": "Add a new supplier and see it listed",
+    "description": "Verifies an admin can create a supplier record from the suppliers page and the new supplier appears in the supplier list.",
+    "category": "Supplier Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to suppliers"
+      },
+      {
+        "type": "action",
+        "description": "Choose to add a new supplier"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Acme Medical Supplies\" into the supplier name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the new supplier form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new supplier appears in the supplier list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC019",
+    "title": "View department list and current allocations",
+    "description": "Verifies an authenticated user can view the departments list and see current allocation information displayed.",
+    "category": "Departmental Allocation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open department allocation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a list of departments is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify each department shows current allocation information"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC020",
+    "title": "Update a compliance item status",
+    "description": "Verifies a user can update a compliance item’s status and see the updated status reflected in the list.",
+    "category": "Compliance Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open compliance management"
+      },
+      {
+        "type": "action",
+        "description": "Select a compliance item to update"
+      },
+      {
+        "type": "action",
+        "description": "Select a different valid status for the item"
+      },
+      {
+        "type": "action",
+        "description": "Submit the compliance update"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the compliance item shows the updated status"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the update is reflected in the compliance list view"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC021",
+    "title": "View a department’s allocation details",
+    "description": "Verifies a user can open a department and see its allocation detail view.",
+    "category": "Departmental Allocation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open department allocation"
+      },
+      {
+        "type": "action",
+        "description": "Select a department from the list to view details"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the department detail view is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the department allocation breakdown is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC022",
+    "title": "Delete an inventory item and confirm it is removed",
+    "description": "Verifies an admin can delete an inventory item and it no longer appears in the inventory list.",
+    "category": "Inventory Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the credentials"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open inventory management"
+      },
+      {
+        "type": "action",
+        "description": "Choose to add a new inventory item"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Test Item Delete\" into the item name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a unique item code into the item code field"
+      },
+      {
+        "type": "action",
+        "description": "Fill a valid positive quantity into the quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Room 2\" into the location field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the new item form"
+      },
+      {
+        "type": "action",
+        "description": "Search for \"Test Item Delete\" in the inventory search field"
+      },
+      {
+        "type": "action",
+        "description": "Delete the item from the inventory list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the deleted item no longer appears in the inventory list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC023",
+    "title": "Search or filter suppliers and edit a supplier",
+    "description": "Verifies an admin can narrow the supplier list using search/filter, edit a supplier, and see the updated supplier information in the list.",
+    "category": "Supplier Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to suppliers"
+      },
+      {
+        "type": "action",
+        "description": "Choose to add a new supplier"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Zenith Pharma Vendor\" into the supplier name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the new supplier form"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Zenith\" into the supplier search field"
+      },
+      {
+        "type": "action",
+        "description": "Open the supplier from the filtered results to edit it"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Zenith Pharma Vendor Updated\" into the supplier name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit supplier changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated supplier information is shown for that supplier in the list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC024",
+    "title": "View compliance checklists and current statuses",
+    "description": "Verifies an authenticated user can view compliance checklist items and their current statuses.",
+    "category": "Compliance Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open compliance management"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify compliance checklist items are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify each compliance item shows a current status"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC025",
+    "title": "View expiring items list",
+    "description": "Verifies a user can open the expiry management page and see a list of items nearing expiry with their dates and quantities.",
+    "category": "Expiry Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to expiry management"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a list of items nearing expiry is displayed with expiry date and quantity information"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC026",
+    "title": "Dashboard charts update when timeframe/metric changes",
+    "description": "Verifies selecting a different timeframe or metric updates the displayed analytics charts and breakdowns.",
+    "category": "Dashboard Analytics",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the credentials"
+      },
+      {
+        "type": "action",
+        "description": "Select a different timeframe or metric option on the dashboard analytics panel"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the usage charts and category breakdown display updates to reflect the selection"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC027",
+    "title": "Delete a supplier from filtered results",
+    "description": "Verifies an admin can search/filter to find a supplier, delete it, and the supplier is removed from the list.",
+    "category": "Supplier Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to suppliers"
+      },
+      {
+        "type": "action",
+        "description": "Choose to add a new supplier"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Temp Supplier To Remove\" into the supplier name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the new supplier form"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Temp Supplier\" into the supplier search field"
+      },
+      {
+        "type": "action",
+        "description": "Delete the supplier from the filtered results"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the supplier is no longer present in the supplier list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC028",
+    "title": "Add a compliance note to an item",
+    "description": "Verifies a user can add a compliance note to an item and the note is visible after saving.",
+    "category": "Compliance Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open compliance management"
+      },
+      {
+        "type": "action",
+        "description": "Select a compliance item to update"
+      },
+      {
+        "type": "action",
+        "description": "Fill Compliance note for automated test into the compliance note field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the compliance update"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the compliance note is visible for the item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the item reflects the saved update"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC029",
+    "title": "Filter expiring items by timeframe or category",
+    "description": "Verifies a user can filter the expiry list by a timeframe or category and the list updates to show only matching items.",
+    "category": "Expiry Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to expiry management"
+      },
+      {
+        "type": "action",
+        "description": "Select a timeframe filter value"
+      },
+      {
+        "type": "action",
+        "description": "Select a category filter value"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the expiring items list shows only items matching the selected timeframe and category"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC030",
+    "title": "View audit log list in chronological order",
+    "description": "Verifies a user can open the audit logs page and see a chronological list of audit events with key event details visible.",
+    "category": "Audit Logs",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to audit logs"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a chronological list of audit events is displayed with user, action, and timestamp information"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC031",
+    "title": "Prevent submitting an allocation with empty required fields",
+    "description": "Verifies the allocation form blocks submission when required fields are missing and shows validation feedback.",
+    "category": "Departmental Allocation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open department allocation"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new allocation for a department"
+      },
+      {
+        "type": "action",
+        "description": "Submit the allocation without filling required fields"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify required field validation errors are visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the allocation is not created"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC032",
+    "title": "Prevent allocating zero quantity",
+    "description": "Verifies the allocation form rejects a zero quantity and does not update the department allocation.",
+    "category": "Departmental Allocation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open department allocation"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new allocation for a department"
+      },
+      {
+        "type": "action",
+        "description": "Select a department for the allocation"
+      },
+      {
+        "type": "action",
+        "description": "Fill 0 into the quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the allocation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a quantity validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the department allocation is not updated"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC033",
+    "title": "Prevent allocating a negative quantity",
+    "description": "Verifies the allocation form rejects a negative quantity and prevents creating the allocation.",
+    "category": "Departmental Allocation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open department allocation"
+      },
+      {
+        "type": "action",
+        "description": "Start creating a new allocation for a department"
+      },
+      {
+        "type": "action",
+        "description": "Select a department for the allocation"
+      },
+      {
+        "type": "action",
+        "description": "Fill -1 into the quantity field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the allocation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a quantity validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the allocation is not created"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC034",
+    "title": "Filter audit logs by user or action type",
+    "description": "Verifies a user can apply a user or action-type filter on audit logs and only matching audit events are shown.",
+    "category": "Audit Logs",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to audit logs"
+      },
+      {
+        "type": "action",
+        "description": "Select a user filter value"
+      },
+      {
+        "type": "action",
+        "description": "Select an action-type filter value"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify only audit events matching the selected filters are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC035",
+    "title": "Prevent submitting a compliance update with missing required input",
+    "description": "Verifies the compliance update form shows validation feedback and blocks saving when required input is missing.",
+    "category": "Compliance Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open compliance management"
+      },
+      {
+        "type": "action",
+        "description": "Select a compliance item to update"
+      },
+      {
+        "type": "action",
+        "description": "Clear required fields for the update if they are editable"
+      },
+      {
+        "type": "action",
+        "description": "Submit the compliance update"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify required field validation errors are visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the compliance item is not updated"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC036",
+    "title": "Supplier list handles no results for search",
+    "description": "Verifies searching suppliers with a query that matches no records shows an appropriate empty state for the list.",
+    "category": "Supplier Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to suppliers"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"NoSuchSupplier_12345\" into the supplier search field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty state is displayed for the supplier list"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC037",
+    "title": "View scanned item result after a successful barcode scan",
+    "description": "Verifies a user can start the camera scanner on the inventory page and after a successful scan the matched inventory item is shown in results.",
+    "category": "Barcode Scanning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to view inventory"
+      },
+      {
+        "type": "action",
+        "description": "Start scanning using the camera"
+      },
+      {
+        "type": "action",
+        "description": "Scan a barcode or QR code using the scanner"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a matched inventory item is displayed in the inventory results"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC038",
+    "title": "Cancel supplier creation without adding a record",
+    "description": "Verifies a user can abandon the add-supplier flow without creating a new supplier and the supplier list remains unchanged.",
+    "category": "Supplier Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to suppliers"
+      },
+      {
+        "type": "action",
+        "description": "Choose to add a new supplier"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Supplier Not To Save\" into the supplier name field"
+      },
+      {
+        "type": "action",
+        "description": "Cancel supplier creation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the supplier is not added to the supplier list"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC039",
+    "title": "Show a user-facing message when camera permission is denied",
+    "description": "Verifies the scanner surfaces an actionable error state when the browser denies camera permission so the user can understand scanning cannot start.",
+    "category": "Barcode Scanning",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to view inventory"
+      },
+      {
+        "type": "action",
+        "description": "Start scanning using the camera"
+      },
+      {
+        "type": "action",
+        "description": "Deny the browser camera permission prompt"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a camera access error state is displayed with guidance to allow permissions"
+      }
+    ],
+    "priority": "Low"
+  }
+]

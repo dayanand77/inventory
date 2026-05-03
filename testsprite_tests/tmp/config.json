@@ -1,0 +1,16 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:5173",
+  "executionArgs": {
+    "projectName": "project 1",
+    "projectPath": "c:\\Users\\bdaya\\Desktop\\project 1",
+    "testIds": [],
+    "additionalInstruction": "Please specifically verify that after logging in as an admin and refreshing the page, the user remains an admin and does not get downgraded to staff. Also verify general CRUD in inventory and dashboard visualization.",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-ee_QzPaoIeq5Q7M-tRAFffTLSuDb0r3k3pgPMwB7ByEdPNz-0d_lzdurCugYAFfU_TsdUFJAGpOCShpvbzdGirbe7UnAzZc6Gu7_R7rSjOy4KYNFfdJUQs8aM3QTFSJsTvU"
+    }
+  }
+}

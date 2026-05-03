@@ -313,7 +313,7 @@ export default function ComplianceManagementPage() {
 
       {/* Add Compliance Modal */}
       <Modal
-        isOpen={showAddModal}
+        open={showAddModal}
         onClose={() => setShowAddModal(false)}
         title="Add Compliance Record"
       >

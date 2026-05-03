@@ -1,0 +1,109 @@
+version: "2"
+type: frontend
+tech_stack:
+  - javascript
+  - react
+  - vite
+  - firebase
+  - axios
+  - tailwindcss (implied from styles)
+routes:
+  - path: /login
+    file: src/pages/LoginPage.jsx
+    auth_required: false
+    description: User login page
+  - path: /
+    file: src/pages/DashboardPage.jsx
+    auth_required: true
+    description: System dashboard with stats
+  - path: /inventory
+    file: src/pages/InventoryPage.jsx
+    auth_required: true
+    description: Inventory management table and forms
+  - path: /suppliers
+    file: src/pages/SuppliersPage.jsx
+    auth_required: true
+    description: Supplier management
+  - path: /transactions
+    file: src/pages/TransactionsPage.jsx
+    auth_required: true
+    description: Stock transaction history
+  - path: /notifications
+    file: src/pages/NotificationsPage.jsx
+    auth_required: true
+    description: Alerts and notifications
+  - path: /audit
+    file: src/pages/AuditLogsPage.jsx
+    auth_required: true
+    description: System audit logs
+  - path: /expiry
+    file: src/pages/ExpiryManagementPage.jsx
+    auth_required: true
+    description: Tracking expiring items
+  - path: /departments
+    file: src/pages/DepartmentAllocationPage.jsx
+    auth_required: true
+    description: Departmental stock distribution
+  - path: /compliance
+    file: src/pages/ComplianceManagementPage.jsx
+    auth_required: true
+    description: Safety and regulatory compliance
+features:
+  - name: User Authentication
+    description: Login and Signup with Firebase
+    files:
+      - src/pages/LoginPage.jsx
+      - src/context/AuthContext.jsx
+      - src/services/authService.js
+    entry_route: /login
+    user_interactions:
+      - Fill email and password
+      - Toggle between login and signup modes
+      - Click Sign In / Create Account
+    api_calls:
+      - method: POST
+        endpoint: /api/auth/sync
+  - name: Inventory Management
+    description: CRUD operations for inventory items
+    files:
+      - src/pages/InventoryPage.jsx
+      - src/components/inventory/InventoryTable.jsx
+      - src/components/inventory/ItemForm.jsx
+    entry_route: /inventory
+    user_interactions:
+      - Add new inventory item
+      - Edit existing item
+      - Delete item
+      - Filter and search inventory
+      - Restock items via modal
+    api_calls:
+      - method: GET
+        endpoint: /api/inventory
+      - method: POST
+        endpoint: /api/inventory
+      - method: PUT
+        endpoint: /api/inventory/{id}
+      - method: DELETE
+        endpoint: /api/inventory/{id}
+  - name: Dashboard Analytics
+    description: Visualizing inventory stats
+    files:
+      - src/pages/DashboardPage.jsx
+      - src/services/dashboardService.js
+    entry_route: /
+    user_interactions:
+      - View stats cards
+      - View usage charts
+    api_calls:
+      - method: GET
+        endpoint: /api/dashboard/stats
+  - name: Barcode Scanning
+    description: Scanning items using QR/Barcode
+    files:
+      - src/components/common/BarcodeScanner.jsx
+      - src/components/inventory/BarcodeScanner.jsx
+    entry_route: /inventory
+    user_interactions:
+      - Scan code using camera
+      - View matched item
+known_limitations: []
